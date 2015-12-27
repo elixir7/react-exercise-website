@@ -19018,62 +19018,250 @@ module.exports = require('./lib/React');
 
 },{"./lib/React":53}],159:[function(require,module,exports){
 var React = require('react');
-var ListItem = require('./ListItem.jsx');
+var GeneralBoxItem = require('./GeneralBoxItem.jsx');
 
-var ingredients = [{
+var value = [{
   "id": 1,
-  "text": "ham"
+  "value": "20",
+  "text": "New followers added this month"
 }, {
   "id": 2,
-  "text": "cheese"
+  "value": "$ 1250",
+  "text": "Average Monthly Income"
 }, {
   "id": 3,
-  "text": "potato"
+  "value": "$ 13865",
+  "text": "Yearly Income Goal"
 }];
 
-var List = React.createClass({
-  displayName: 'List',
+var GeneralBox = React.createClass({
+  displayName: 'GeneralBox',
 
   render: function () {
-    var listItems = ingredients.map(function (item) {
-      return React.createElement(ListItem, { key: item.id, ingredients: item.text });
+    var generalBoxItems = value.map(function (item) {
+      return React.createElement(
+        'div',
+        { className: 'col-sm-4' },
+        React.createElement(
+          'div',
+          { className: 'panel panel-default' },
+          React.createElement(
+            'div',
+            { className: 'panel-body' },
+            React.createElement(GeneralBoxItem, { key: item.id, value: item.value, text: item.text })
+          )
+        )
+      );
     });
 
     return React.createElement(
-      'ul',
-      null,
-      listItems
+      'div',
+      { className: 'row' },
+      generalBoxItems
     );
   }
 });
 
-module.exports = List;
+module.exports = GeneralBox;
 
-},{"./ListItem.jsx":160,"react":158}],160:[function(require,module,exports){
+},{"./GeneralBoxItem.jsx":160,"react":158}],160:[function(require,module,exports){
 var React = require('react');
-var ListItem = React.createClass({
-  displayName: 'ListItem',
+
+var boxItemStyle = {
+  color: "#666666",
+  padding: 20
+};
+
+var GeneralBoxItem = React.createClass({
+  displayName: "GeneralBoxItem",
 
   render: function () {
     return React.createElement(
-      'li',
-      null,
+      "div",
+      { style: boxItemStyle, className: "boxContent" },
       React.createElement(
-        'h4',
+        "h3",
         null,
-        this.props.ingredients
+        this.props.value
+      ),
+      React.createElement(
+        "p",
+        null,
+        this.props.text
       )
     );
   }
 });
 
-module.exports = ListItem;
+module.exports = GeneralBoxItem;
 
 },{"react":158}],161:[function(require,module,exports){
 var React = require('react');
+var MainContentItem = require('./MainContentItem.jsx');
+
+var information = [{
+  "id": 1,
+  "value": "15080",
+  "text": "Shots Views"
+}, {
+  "id": 2,
+  "value": "12000",
+  "text": "Likes"
+}, {
+  "id": 3,
+  "value": "5100",
+  "text": "Comments"
+}];
+
+var panelHeadingStyle = {
+  height: 100
+};
+
+var panelBodyStyle = {
+  textAlign: "center",
+  background: "#666",
+  color: "white"
+
+};
+
+var MainContent = React.createClass({
+  displayName: 'MainContent',
+
+  render: function () {
+    var mainContentItems = information.map(function (item) {
+      return React.createElement(MainContentItem, { key: item.id, value: item.value, text: item.text });
+    });
+
+    return React.createElement(
+      'div',
+      { className: 'panel panel-primary' },
+      React.createElement('div', { style: panelHeadingStyle, className: 'panel-heading' }),
+      React.createElement(
+        'div',
+        { style: panelBodyStyle, className: 'panel-body' },
+        mainContentItems
+      )
+    );
+  }
+});
+
+module.exports = MainContent;
+
+},{"./MainContentItem.jsx":162,"react":158}],162:[function(require,module,exports){
+var React = require('react');
+
+var MainContentItem = React.createClass({
+  displayName: "MainContentItem",
+
+  render: function () {
+    return React.createElement(
+      "div",
+      { className: "content col-xs-4" },
+      React.createElement(
+        "h4",
+        null,
+        this.props.value
+      ),
+      React.createElement(
+        "p",
+        null,
+        this.props.text
+      )
+    );
+  }
+});
+
+module.exports = MainContentItem;
+
+},{"react":158}],163:[function(require,module,exports){
+var React = require('react');
+var SideBarItem = require('./SideBarItem.jsx');
+
+var value = [{
+  "id": 1,
+  "title": "New visitors",
+  "value": "1.5k"
+}, {
+  "id": 2,
+  "title": "Bounce Rate",
+  "value": "50%"
+}, {
+  "id": 3,
+  "title": "Searchs",
+  "value": "28%"
+}, {
+  "id": 4,
+  "title": "Traffic",
+  "value": "140.5kb"
+}];
+
+var SideBar = React.createClass({
+  displayName: 'SideBar',
+
+  render: function () {
+    var sideBarItems = value.map(function (item) {
+      return React.createElement(
+        'div',
+        { className: 'col-sm-12' },
+        React.createElement(
+          'div',
+          { className: 'panel panel-default' },
+          React.createElement(
+            'div',
+            { className: 'panel-heading' },
+            React.createElement(SideBarItem, { key: item.id, value: item.value, title: item.title })
+          ),
+          React.createElement('div', { className: 'panel-body' })
+        )
+      );
+    });
+
+    return React.createElement(
+      'div',
+      { className: 'row' },
+      sideBarItems
+    );
+  }
+});
+
+module.exports = SideBar;
+
+},{"./SideBarItem.jsx":164,"react":158}],164:[function(require,module,exports){
+var React = require('react');
+
+var SideBarItem = React.createClass({
+  displayName: "SideBarItem",
+
+  render: function () {
+    return React.createElement(
+      "div",
+      { className: "boxContent" },
+      React.createElement(
+        "p",
+        null,
+        this.props.title
+      ),
+      React.createElement(
+        "h3",
+        null,
+        this.props.value
+      )
+    );
+  }
+});
+
+module.exports = SideBarItem;
+
+},{"react":158}],165:[function(require,module,exports){
+var React = require('react');
 var ReactDOM = require('react-dom');
-var List = require('./components/List.jsx');
+var GeneralBox = require('./components/GeneralBox.jsx');
+var SideBar = require('./components/SideBar.jsx');
+var MainContent = require('./components/MainContent.jsx');
 
-ReactDOM.render(React.createElement(List, null), document.getElementById('ingredients'));
+ReactDOM.render(React.createElement(GeneralBox, null), document.getElementById('general-box-container'));
+ReactDOM.render(React.createElement(SideBar, null), document.getElementById('side-bar'));
+ReactDOM.render(React.createElement(MainContent, null), document.getElementById('main-content1'));
+ReactDOM.render(React.createElement(MainContent, null), document.getElementById('main-content2'));
 
-},{"./components/List.jsx":159,"react":158,"react-dom":29}]},{},[161]);
+},{"./components/GeneralBox.jsx":159,"./components/MainContent.jsx":161,"./components/SideBar.jsx":163,"react":158,"react-dom":29}]},{},[165]);
